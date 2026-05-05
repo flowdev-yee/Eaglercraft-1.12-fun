@@ -45,7 +45,7 @@ menu.loadingLevel=Loading world
 menu.generatingTerrain=Building terrain
 menu.convertingLevel=Converting world
 menu.respawning=Respawning
-menu.shareToLan=Open to LAN
+menu.shareToLan=Open Realm
 
 selectWorld.title=Select World
 selectWorld.empty=empty
@@ -248,10 +248,10 @@ addServer.resourcePack=Server Resource Packs
 addServer.resourcePack.enabled=Enabled
 addServer.resourcePack.disabled=Disabled
 addServer.resourcePack.prompt=Prompt
-lanServer.title=LAN World
+lanServer.title=Realm World
 lanServer.scanning=Scanning for games on your local network
-lanServer.start=Start LAN World
-lanServer.otherPlayers=Settings for Other Players
+lanServer.start=Start Realm World
+lanServer.otherPlayers=Realm Access Settings
 mcoServer.title=Minecraft Online World
 
 multiplayer.title=Play Multiplayer
@@ -4130,3 +4130,5 @@ eaglercraft.addServer.hideAddr=Hide Addr
 eaglercraft.addServer.enableCookies=Cookies
 eaglercraft.addServer.enableCookies.enabled=Enabled
 eaglercraft.addServer.enableCookies.disabled=Disabled
+
+selectServer.realms=Join Realm
