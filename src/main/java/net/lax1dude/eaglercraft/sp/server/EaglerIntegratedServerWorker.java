@@ -37,6 +37,17 @@ import net.peyton.eagler.fs.FileUtils;
 
 public class EaglerIntegratedServerWorker {
 
+	private static String generateRealmCode() {
+		String chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+		StringBuilder b = new StringBuilder(6);
+		java.util.Random r = new java.util.Random();
+		for(int i = 0; i < 6; ++i) {
+			b.append(chars.charAt(r.nextInt(chars.length())));
+		}
+		return b.toString();
+	}
+
+
 	public static final Logger logger = LogManager.getLogger("EaglerIntegratedServer");
 
 	private static EaglerMinecraftServer currentProcess = null;
@@ -259,6 +270,13 @@ public class EaglerIntegratedServerWorker {
 				break;
 			}
 			case IPCPacket17ConfigureLAN.ID: {
+				if (!isServerStopped()) {
+					String code = generateRealmCode();
+					sendIPCPacket(new IPCPacket14StringList(IPCPacket14StringList.REALM_CODE, java.util.Collections.singletonList(code)));
+				} else {
+					logger.error("Client tried to open realm while server was stopped");
+					sendTaskFailed();
+				}
 				break;
 			}
 			case IPCPacket18ClearPlayers.ID: {
