@@ -47,6 +47,7 @@ public class SingleplayerServerController {
 
 	private static List<String> integratedServerTPS = new ArrayList<>();
 	private static long integratedServerLastTPSUpdate = 0;
+	private static String currentRealmCode = null;
 
 	private SingleplayerServerController() {
 	}
@@ -168,6 +169,17 @@ public class SingleplayerServerController {
 				viewDistance, false));
 	}
 
+
+	public static boolean openWorldToLAN(net.lax1dude.eaglercraft.sp.relay.RelayWorld relayWorld, int gameMode, boolean cheats) {
+		currentRealmCode = null;
+		ensureWorldReady();
+		if(relayWorld == null) {
+			return false;
+		}
+		List<String> ice = relayWorld.iceServers != null ? relayWorld.iceServers : new ArrayList<>();
+		sendIPCPacket(new IPCPacket17ConfigureLAN(gameMode, cheats, ice));
+		return true;
+	}
 	public static void clearTPS() {
 		integratedServerTPS.clear();
 		integratedServerLastTPSUpdate = 0l;
@@ -175,6 +187,10 @@ public class SingleplayerServerController {
 
 	public static List<String> getTPS() {
 		return integratedServerTPS;
+	}
+
+	public static String getCurrentRealmCode() {
+		return currentRealmCode;
 	}
 
 	public static long getTPSAge() {
@@ -382,6 +398,8 @@ public class SingleplayerServerController {
 				integratedServerTPS.clear();
 				integratedServerTPS.addAll(pkt.stringList);
 				integratedServerLastTPSUpdate = EagRuntime.steadyTimeMillis();
+			} else if (pkt.opCode == IPCPacket14StringList.REALM_CODE) {
+				currentRealmCode = pkt.stringList.isEmpty() ? null : pkt.stringList.get(0);
 			} else {
 				logger.warn("Strange string list type {} recieved!", pkt.opCode);
 			}
