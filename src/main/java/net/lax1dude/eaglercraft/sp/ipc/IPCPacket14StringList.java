@@ -30,6 +30,7 @@ public class IPCPacket14StringList implements IPCPacketBase {
 	public static final int LOCALE = 0x1;
 	public static final int STAT_GUID = 0x2;
 	public static final int SERVER_TPS = 0x3;
+	public static final int REALM_CODE = 0x4;
 
 	public int opCode;
 	public final List<String> stringList;

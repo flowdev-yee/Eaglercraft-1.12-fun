@@ -57,7 +57,7 @@ public class GuiIngameMenu extends GuiScreen {
 		GuiButton lanButton = this.addButton(new GuiButtonWithStupidIcons(7, this.width / 2 + 2, this.height / 4 + 96 + -16, 98, 20,
 				I18n.format("menu.shareToLan"), PauseMenuCustomizeState.icon_discord_L, PauseMenuCustomizeState.icon_discord_L_aspect,
 				PauseMenuCustomizeState.icon_discord_R, PauseMenuCustomizeState.icon_discord_R_aspect));
-		lanButton.enabled = false;
+		lanButton.enabled = this.mc.isIntegratedServerRunning() && SingleplayerServerController.isWorldReady();
 		
 		this.buttonList.add(new GuiButtonWithStupidIcons(5, this.width / 2 - 100, this.height / 4 + 48 + -16, 98, 20,
 				I18n.format("gui.advancements"), PauseMenuCustomizeState.icon_achievements_L,
@@ -128,7 +128,11 @@ public class GuiIngameMenu extends GuiScreen {
 			this.mc.displayGuiScreen(new GuiStats(this, this.mc.player.getStatFileWriter()));
 			break;
 		case 7:
-			throw new UnsupportedOperationException("LAN is not supported yet you eagler!");
+			net.lax1dude.eaglercraft.sp.relay.RelayWorld realm = new net.lax1dude.eaglercraft.sp.relay.RelayWorld("local", this.mc.getSession().getProfile().getName(), false, new java.util.ArrayList<String>());
+			if(SingleplayerServerController.openWorldToLAN(realm, this.mc.playerController.getCurrentGameType().getID(), this.mc.player.capabilities.allowFlying)) {
+				this.mc.displayGuiScreen(new GuiScreenOpenRealmCode(this));
+			}
+			break;
 		case 8:
 			if (PauseMenuCustomizeState.discordButtonMode == PauseMenuCustomizeState.DISCORD_MODE_INVITE_URL
 					&& PauseMenuCustomizeState.discordInviteURL != null) {

@@ -21,11 +21,17 @@ public class RelayEntry {
 	public final String address;
 	public final String comment;
 	public final boolean primary;
+	public final java.util.List<RelayWorld> sharedWorlds;
 
 	public RelayEntry(String address, String comment, boolean primary) {
+		this(address, comment, primary, new java.util.ArrayList<>());
+	}
+
+	public RelayEntry(String address, String comment, boolean primary, java.util.List<RelayWorld> sharedWorlds) {
 		this.address = address;
 		this.comment = comment;
 		this.primary = primary;
+		this.sharedWorlds = sharedWorlds == null ? new java.util.ArrayList<>() : sharedWorlds;
 	}
 
 }
