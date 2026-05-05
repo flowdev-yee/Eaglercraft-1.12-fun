@@ -26,6 +26,7 @@ import net.lax1dude.eaglercraft.opengl.GlStateManager;
 import net.lax1dude.eaglercraft.opengl.RealOpenGLEnums;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -38,7 +39,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.WorldServerDemo;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
-import net.peyton.eagler.gui.GuiCredits;
 import net.lax1dude.eaglercraft.profile.*;
 
 public class GuiMainMenu extends GuiScreen {
@@ -198,7 +198,7 @@ public class GuiMainMenu extends GuiScreen {
 		this.buttonList.add(
 				new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer")));
 		this.buttonList
-				.add(new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("menu.credits")));
+				.add(new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("selectServer.realms")));
 	}
 
 	/**
@@ -257,7 +257,8 @@ public class GuiMainMenu extends GuiScreen {
 		}
 
 		if (button.id == 14) {
-			this.mc.displayGuiScreen(new GuiCredits(this, "/assets/eagler/credits.txt"));
+			ServerData selectedServer = new ServerData(I18n.format("selectServer.defaultName"), "realms://", false);
+			this.mc.displayGuiScreen(new GuiScreenServerList(this, selectedServer));
 		}
 	}
 

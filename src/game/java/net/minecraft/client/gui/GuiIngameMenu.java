@@ -130,7 +130,7 @@ public class GuiIngameMenu extends GuiScreen {
 		case 7:
 			net.lax1dude.eaglercraft.sp.relay.RelayWorld realm = new net.lax1dude.eaglercraft.sp.relay.RelayWorld("local", this.mc.getSession().getProfile().getName(), false, new java.util.ArrayList<String>());
 			if(SingleplayerServerController.openWorldToLAN(realm, this.mc.playerController.getCurrentGameType().getID(), this.mc.player.capabilities.allowFlying)) {
-				this.mc.displayGuiScreen((GuiScreen)null);
+				this.mc.displayGuiScreen(new GuiScreenOpenRealmCode(this));
 			}
 			break;
 		case 8:
